@@ -1,0 +1,465 @@
+
+
+-- create table customer(
+--   id INT primary key,
+--   name varchar(255) UNIQUE,
+--   balance INT  ,
+--   CONSTRAINT  acc_balance_check CHECK(balance > 10),
+--   salary INT default(0)
+-- );
+
+
+
+-- CONSTRAINTs on db
+create table customer(
+  id INT primary key,
+  name varchar(255) UNIQUE,
+  balance INT  ,
+  CONSTRAINT  acc_balance_check CHECK(balance > 10),
+  salary INT default(0)
+);
+
+--  INSERT INTO customer(id,name,balance) VALUES  (1,"sahil",1222);
+
+-- INSERT INTO customer(id,name,balance) VALUES (1,"sahil",1);
+
+-- select * from customer;
+
+
+CREATE TABLE Worker(
+worker_id INT NOT NULL PRIMARY KEY 
+AUTO_INCREMENT,
+FIRST_NAME CHAR(30),
+LAST_NAME CHAR(30),
+JOINING_DATE DATETIME,
+DEPARTMENT CHAR(39)
+ );
+ -- learn about types of sql commands - ddl,dml,tcl ,dql
+ INSERT INTO Worker (FIRST_NAME, LAST_NAME, JOINING_DATE, DEPARTMENT) VALUES
+('John', 'Doe', '2024-01-15 09:00:00', 'Engineering'),
+('Jane', 'Smith', '2023-11-22 09:30:00', 'Marketing'),
+('Michael', 'Johnson', '2022-03-05 08:45:00', 'Human Resources'),
+('Emily', 'Davis', '2021-07-12 10:15:00', 'Finance'),
+('Chris', 'Brown', '2024-03-20 11:00:00', 'Sales'),
+('Patricia', 'Taylor', '2022-09-25 14:00:00', 'IT Support'),
+('James', 'Miller', '2023-05-30 08:30:00', 'Legal'),
+('Linda', 'Wilson', '2020-12-01 07:45:00', 'Customer Service'),
+('David', 'Moore', '2024-08-14 13:00:00', 'Operations'),
+('Sarah', 'Lee', '2024-10-01 09:10:00', 'Product Development');
+
+-- SELECT * from Worker;
+
+CREATE TABLE Bonus(
+  WORKER_REF_ID INT,
+  BONUS_AMOUNT INT(10),
+  BONUS_DATE DATETIME,
+  FOREIGN KEY(WORKER_REF_ID) 
+    REFERENCES Worker(worker_id)
+     ON DELETE CASCADE
+     -- or on delete set null 
+     -- as on delete cascade will delete everything from children if that value from parent is deleted
+);
+
+INSERT INTO Bonus (WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+(1, 5000, '2024-12-15 10:00:00'),
+(2, 3500, '2024-12-10 12:30:00'),
+(3, 4000, '2024-11-30 11:45:00'),
+(4, 5500, '2024-12-05 09:15:00'),
+(5, 3000, '2024-12-01 14:00:00'),
+(6, 4500, '2024-12-12 08:30:00'),
+(7, 3800, '2024-11-25 15:00:00'),
+(8, 4200, '2024-12-18 13:45:00'),
+(9, 3700, '2024-12-14 16:30:00'),
+(10, 4900, '2024-12-07 10:30:00');
+
+CREATE TABLE Title (
+  WORKER_REF_ID INT,
+  WORKER_TITLE CHAR(25),
+  AFFECTED_FROM DATETIME,
+  FOREIGN KEY (WORKER_REF_ID)
+  REFERENCES Worker(worker_id)
+  on DELETE CASCADE
+);
+INSERT INTO Title (WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES
+(1, 'Software Engineer', '2024-01-15 09:00:00'),
+(2, 'Marketing Manager', '2023-11-22 09:30:00'),
+(3, 'HR Specialist', '2022-03-05 08:45:00'),
+(4, 'Finance Analyst', '2021-07-12 10:15:00'),
+(5, 'Sales Executive', '2024-03-20 11:00:00'),
+(6, 'IT Support Specialist', '2022-09-25 14:00:00'),
+(7, 'Legal Advisor', '2023-05-30 08:30:00'),
+(8, 'Customer Service', '2020-12-01 07:45:00'),
+(9, 'Operations Manager', '2024-08-14 13:00:00'),
+(10, 'Product Developer', '2024-10-01 09:10:00');
+
+
+-- SELECT * from Worker WHERE  DEPARTMENT ="Engineering";
+-- SELECT * from Worker WHERE  DEPARTMENT ="Engineering" OR DEPARTMENT = 'Marketing';
+-- SELECT * from Worker WHERE  DEPARTMENT ="Engineering" AND DEPARTMENT = 'Marketing';
+
+-- dual tables (some other operations except the select queries )
+-- SELECT now();
+-- SELECT ucase('sahil');
+
+-- if wanted to fetch multiple entries then using IN over standard select+and+in operators
+
+-- select * from Worker WHERE DEPARTMENT IN ("Engineering","Marketing");
+-- select * from Worker WHERE DEPARTMENT NOT IN ("Engineering","Marketing");
+
+
+INSERT INTO Worker (FIRST_NAME, LAST_NAME, JOINING_DATE, DEPARTMENT) VALUES
+('John', 'Doe', '2024-01-15 09:00:00',NULL);
+
+-- is null property 
+-- select * from Worker where DEPARTMENT IS NULL ;
+
+
+-- pattern searching / wildcard matching 
+
+
+-- SELECT * FROM Worker WHERE FIRST_NAME LIKE '%i%';
+-- percentage means any no of chars
+-- SELECT * FROM Worker WHERE FIRST_NAME LIKE '_a%';
+-- _ means only 1 char 
+
+
+
+-- sorting 
+
+-- SELECT * FROM Bonus ORDER BY BONUS_AMOUNT DESC;
+-- SELECT * FROM Bonus ORDER BY BONUS_AMOUNT asc;
+
+
+-- distinct values 
+-- select DISTINCT DEPARTMENT from Worker;
+
+
+-- group by (aggregration queires)
+
+--  counting 
+-- select department, COUNT(department) from Worker group by department;
+-- 
+-- select BONUS_AMOUNT, AVG(BONUS_AMOUNT) from Bonus group by BONUS_AMOUNT;
+
+-- SELECT WORKER_REF_ID, MIN(BONUS_AMOUNT) 
+-- FROM Bonus
+-- GROUP BY WORKER_REF_ID;
+
+ 
+
+-- group by + having clause 
+-- having clause is like filtering of select WHERE
+
+-- SELECT DEPARTMENT, COUNT(*) AS num_workers
+-- FROM Worker
+-- GROUP BY DEPARTMENT
+-- HAVING COUNT(*) >= 1;
+
+
+
+
+
+create table account(
+  id INT PRIMARY KEY,
+  name varchar(250),
+  balance INT NOT NULL default(0)
+);
+-- Alter table commands
+
+
+-- adding new columns 
+Alter table account ADD interest FLOAT NOT NULL DEFAULT(0);
+
+-- modifying the CONSTRAINT of column 
+ALTER TABLE account MODIFY interest INT NOT NULL DEFAULT (0);
+
+-- changing COLUMN name 
+Alter table account CHANGE COLUMN interest INTERESTT FLOAT NOT NULL DEFAULT(0);
+
+
+-- dropping COLUMN 
+Alter table account DROP COLUMN  INTERESTT ;
+
+-- renaming the table name
+Alter table account rename to account_details; 
+
+
+
+
+
+CREATE TABLE accounttt (
+    account_id INT AUTO_INCREMENT PRIMARY KEY,
+    account_name VARCHAR(100) NOT NULL,
+    account_type VARCHAR(50) NOT NULL DEFAULT "none",
+    balance DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    interest INT NOT NULL DEFAULT 0
+);
+
+INSERT INTO accounttt (account_name, account_type, balance, interest) VALUES
+('John Doe', 'Savings', 1000.00, 5),
+('Jane Smith', 'Checking', 1500.50, 2),
+('Michael Johnson', 'Savings', 2500.00, 3),
+('Emily Davis', 'Checking', 1000.00, 1);
+
+-- update specific value 
+UPDATE accounttt SET account_name='john dove' WHERE interest=5;
+-- or update multiple values witout using the where clause
+
+-- SELECT * from accounttt;
+
+
+-- deleteing the values or the entire table itself 
+DELETE FROM accounttt where account_name ='Emily Davis';
+
+-- SELECT * from accounttt;
+
+-- dropping the entire table 
+-- DELETE FROM accounttt;
+
+ 
+
+-- replace command 
+
+-- replaces if present or if not then creates new entries
+REPLACE INTO accounttt set account_id=1 ,account_name='dumb joe' ;
+
+-- SELECT * from accounttt;
+
+REPLACE INTO accounttt(account_id,account_name) VALUES
+(4,'new entri');
+
+SELECT * from accounttt;
+
+
+
+
+
+
+CREATE TABLE Project (
+    id INT PRIMARY KEY,
+    empID INT,
+    name VARCHAR(50),
+    startdate DATE,
+    clientID INT
+);
+
+CREATE TABLE Employee (
+    id INT PRIMARY KEY,
+    fname VARCHAR(50),
+    lname VARCHAR(50),
+    Age INT,
+    emailID VARCHAR(100),
+    PhoneNo INT,
+    City VARCHAR(50)
+);
+
+CREATE TABLE Client (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    age INT,
+    emailID VARCHAR(100),
+    PhoneNo INT,
+    City VARCHAR(50),
+    empID INT
+);
+-- Insert into Project Table
+INSERT INTO Project (id, empID, name, startdate, clientID) VALUES
+(1, 1, 'A', '2021-04-21', 3),
+(2, 2, 'B', '2021-03-12', 1),
+(3, 3, 'C', '2021-01-16', 5),
+(4, 3, 'D', '2021-04-27', 2),
+(5, 5, 'E', '2021-05-01', 4);
+
+-- Insert into Employee Table
+INSERT INTO Employee (id, fname, lname, Age, emailID, PhoneNo, City) VALUES
+(1, 'Aman', 'Proto', 32, 'aman@gmail.com', 898, 'Delhi'),
+(2, 'Yagya', 'Narayan', 44, 'yagya@gmail.com', 222, 'Palam'),
+(3, 'Rahul', 'BD', 22, 'rahul@gmail.com', 444, 'Kolkata'),
+(4, 'Jatin', 'Hermit', 31, 'jatin@gmail.com', 666, 'Raipur'),
+(5, 'PK', 'Pandey', 21, 'pk@gmail.com', 555, 'Jaipur');
+
+-- Insert into Client Table
+INSERT INTO Client (id, first_name, last_name, age, emailID, PhoneNo, City, empID) VALUES
+(1, 'Mac', 'Rogers', 47, 'mac@hotmail.com', 333, 'Kolkata', 3),
+(2, 'Max', 'Poirier', 27, 'max@gmail.com', 222, 'Kolkata', 3),
+(3, 'Peter', 'Jain', 24, 'peter@abc.com', 111, 'Delhi', 1),
+(4, 'Sushant', 'Aggarwal', 23, 'sushant@yahoo.com', 4554, 'Hyderabad', 5),
+(5, 'Pratap', 'Singh', 36, 'p@xyz.com', 77767, 'Mumbai', 2);
+
+
+-- SELECT * from Client ;
+-- SELECT * from Employee;
+-- SELECT * from Project;
+
+
+-- enlist all the employee id,name along iwht the project allocated to them 
+
+-- inner join 
+-- SELECT e.id,e.fname,p.name,p.id ,p.name from Employee as e 
+-- INNER JOIN Project as p 
+-- ON 
+-- e.id = p.empID ;
+-- orrr we can use the standard select query too for inner join witout keyword
+
+-- SELECt * 
+-- from Employee as e ,Project as p 
+-- WHERE e.id = p.empID;
+
+
+-- fetch out all the emp id and thier contact details who have been 
+-- working in jaipur with the clinets working in Hyderabad 
+
+-- SELECT e.id,e.emailID,e.PhoneNo,c.first_name,c.emailID,c.PhoneNo
+-- from Employee as e 
+-- INNER JOIN Client as c 
+-- WHERE e.City='jaipur' AND c.City='Hyderabad';
+
+
+-- fetch out each project assigend to each employee
+  -- SELECT * from Employee as e 
+  -- LEFT JOIN 
+  -- Project as p 
+  -- ON e.id = p.empID;
+
+
+-- right join
+-- list out all the projects along with the empployee name and thier respective allocated email id 
+ -- answer = just above queyr focusing on the right table == right join
+
+
+
+
+-- cross join
+-- list out all the combinations possible for the empoyee's name and projects that can exist
+-- SELECT * 
+-- FROM Employee AS e
+-- CROSS JOIN Client AS p
+-- WHERE e.id = p.empID;
+
+
+
+-- sub queries (there is one outer and one inner query (basically query nesting ))
+
+-- selct emp having age > 30 
+-- SELECt Employee.fname from Employee where Employee.age in 
+-- (select age from Employee where age > 30);
+
+
+
+
+
+
+
+
+
+-- set operations (can only be performed having same no of columnns and doesnt join)
+
+-- also in set operation the no of resultant cols remain the same wheras in join it gets added
+ -- union operation
+ 
+-- set displays unique elements always 
+
+
+-- Create table for Dept1
+CREATE TABLE Dept1 (
+    empid INT,
+    name VARCHAR(50),
+    role VARCHAR(50)
+);
+
+-- Create table for Dept2
+CREATE TABLE Dept2 (
+    empid INT,
+    name VARCHAR(50),
+    role VARCHAR(50)
+);
+-- Insert data into Dept1
+INSERT INTO Dept1 (empid, name, role) VALUES (1, 'A', 'engineer');
+INSERT INTO Dept1 (empid, name, role) VALUES (2, 'B', 'salesman');
+INSERT INTO Dept1 (empid, name, role) VALUES (3, 'C', 'manager');
+INSERT INTO Dept1 (empid, name, role) VALUES (4, 'D', 'salesman');
+INSERT INTO Dept1 (empid, name, role) VALUES (5, 'E', 'engineer');
+
+-- Insert data into Dept2
+INSERT INTO Dept2 (empid, name, role) VALUES (3, 'C', 'manager');
+INSERT INTO Dept2 (empid, name, role) VALUES (6, 'F', 'marketing');
+INSERT INTO Dept2 (empid, name, role) VALUES (7, 'G', 'salesman');
+
+-- SELECT * from Dept1 
+-- UNION
+-- SELECT * from Dept2 ;
+
+-- SELECT * from Dept1 
+-- INTERSECT
+-- SELECT * from Dept2 ;
+-- intersect is not availabe in mysql for that we use inner join 
+
+-- SELECT * from Dept1 MINUS SELECT * from Dept2 ;
+-- for a-b , it is same as left join a and b where b is null
+
+
+
+
+
+
+-- correlated queries pending 
+--
+
+-- views 
+CREATE VIEW client_view AS SELECT first_name,last_name,age fROM Client;
+
+ALTER VIEW client_view AS SELECT first_name,age fROM Client;
+
+-- select * from client_view;
+
+
+DROP VIEW IF EXISTS client_view;
+
+
+
+-- select * from client_view;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
