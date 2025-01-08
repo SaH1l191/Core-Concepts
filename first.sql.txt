@@ -422,7 +422,13 @@ DROP VIEW IF EXISTS client_view;
 
 
 
-
+-- CASE (similar to if else for displaying )
+select name,
+CASE role
+    when 'manager' then 'boss'
+    when 'salesman' then 'nothing'
+    when 'engineer' then 'pro'
+end as actual_roles from Dept1;
 
 
 
