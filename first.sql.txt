@@ -121,6 +121,8 @@ INSERT INTO Worker (FIRST_NAME, LAST_NAME, JOINING_DATE, DEPARTMENT) VALUES
 -- percentage means any no of chars
 -- SELECT * FROM Worker WHERE FIRST_NAME LIKE '_a%';
 -- _ means only 1 char 
+-- Find the products where the brans name is exactly of 6 cahracters long
+select * from Worker where FIRST_NAME like '______';
 
 
 
