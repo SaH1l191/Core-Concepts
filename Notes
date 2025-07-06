@@ -14,5 +14,13 @@ Size of empty created Class => size ==1   eg=> class Animal(){};cout<<sizeof(Ani
 
 HW=> Greedy and padding alignment 
 
+Access Modifiers => public,private,protected
+
+
+
+
+
+
+
 
 
