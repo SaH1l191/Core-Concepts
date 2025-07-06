@@ -13,8 +13,132 @@ Size of empty created Class => size ==1   eg=> class Animal(){};cout<<sizeof(Ani
 
 
 HW=> Greedy and padding alignment 
+Padding means extra unused bytes added by the compiler to align data in memory.
+It ensures efficient access on most CPUs.
+CPUs generally read data faster if variables are aligned to their size boundaries (like 4-byte int on 4-byte boundary
+
+EG=>
+struct Example {
+    char a;    // 1 byte
+    int b;     // 4 bytes
+};
+a takes 1 byte.
+But b wants to be aligned at a multiple of 4 bytes.
+So compiler adds 3 bytes padding after a to align b properly.
+Padding can be reduced by reodering of elements (give both  - reodered and normal to show size taken ) 
+
+difference between struct and class 
+
 
 Access Modifiers => public,private,protected
+
+Types of Memory allocation 
+static and dynamic . 
+static takes place in limited stack memory and dynamic takes place from heap(large size) (new keyword).
+
+this is a pointer that refers to the current instance of the class
+
+A constructor in C++:
+Initializes class members (either explicitly or implicitly).
+Is automatically invoked when an object of the class is created.
+Can be overloaded to allow different ways of initializing an object.  
+
+
+Types of Contrustor :-
+Default ,parametrized,copy 
+
+Copy Constructor => (all below created are shallow copy)
+Animal(Animal obj){}//this is wrong as it leads to recursion as the parameter passed by value 
+so again copy con.. called and again and again...
+Soln=>Animal(Animal &obj){}
+
+EG=>Animal(const Animal &obj) {
+        this->age = obj.age;
+        this->wt = obj.wt;
+        cout << "Copy constructor called" << endl;
+    }
+    int main => Animal g = a;  
+
+Destructor gets called automatically for the static object => Animal a;
+while it doesn't gets called auto for dynamic object => Animal *aa = new Animal(122);
+so use => delete aa; (delete Keyword)
+
+
+
+Hw => static functions and static members,const keyword,initialization list 
+Static =>
+belong to the class itself, not to any individual object
+There is only one copy shared by all instances of the class.
+And accessed/initialized using scope resolution operator => int Animal::count= 0;
+
+
+Const keyword => cannot modify 
+const varaible => const int x = 10;
+Const member function => 
+int getAge() const {  // Promises not to modify object
+  return age;
+}
+
+Scope resolution Operator => 
+It specifies the scope to which a name belongs.
+It helps access members (variables, functions, types) that are defined inside a namespace, class, or struct.
+It tells the compiler: "Look inside this scope (like a class or namespace) for the name."
+Egs => 
+1.Accessing static member outside class
+int Animal::count = 0;  // Defines count belonging to Animal class
+2.Calling a function inside a namespace
+std::cout << "Hello";  // std is the namespace, cout is inside it
+3.Calling a class member function outside the class
+void Animal::fun() {
+    cout << "Fun called" << endl;
+}
+
+
+Pillars of OOPs => 
+Encapsulation -> 
+process of grouping data and functions together and restricting access to the inner workings of that object.
+Encapsulation is the concept of wrapping data (variables) and methods (functions) that operate on the data into a single unit 
+— usually a class — and restricting direct access to some of the object's components.
+
+Think of a coffee machine:
+You only press buttons (public methods).
+You don't need to know the internal plumbing (private members).
+The complexity is hidden, but it still works as expected.
+
+Keyword => 
+data hiding , access control
+
+
+Abstraction
+Abstraction is the process of hiding complex implementation details and showing only the essential features to the user.
+It focuses on what an object does, not how it does it.
+
+Inheritance :- 
+------------------------------------------------------------------
+| Base class     |                  Mode of Inheritance           |
+| Access         |------------------------------------------------|
+| Modifier       | Public         | Protected      | Private     |
+------------------------------------------------------------------
+| Public         | Public         | Protected      | Private     |
+------------------------------------------------------------------
+| Public         | Public         | Protected      | Private     |
+------------------------------------------------------------------
+| Protected      | Protected      | Protected      | Private     |
+------------------------------------------------------------------
+| Private        | NA             | NA             | NA          |
+------------------------------------------------------------------
+
+
+Polymorphism:- 
+existing in many forms 
+It allows you to write generic code.
+Makes programs extensible and scalable.
+
+Compile Time and Runtime 
+Compile time => function overloading , operator overloading 
+Runtime => virtual keyword ,Base class pointers
+
+
 
 
 
