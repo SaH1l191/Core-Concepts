@@ -10,3 +10,9 @@ WHY oops ?
 also mention 4 pillars of the OOPs ,etc .... 
 
 Size of empty created Class => size ==1   eg=> class Animal(){};cout<<sizeof(Animal);
+
+
+HW=> Greedy and padding alignment 
+
+
+
