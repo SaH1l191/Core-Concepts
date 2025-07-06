@@ -1,0 +1,12 @@
+OOOPs Notes => 
+
+OOPs is a programing technique that revolves around objects 
+objects give the real world entities 
+Classes are the blueprint of the object 
+object has => properties and behaviour . eg => cat,bottle,car .....
+
+WHY oops ? 
+=> can have more control behaviour of code and can understand the code better.Can create more custom data types,
+also mention 4 pillars of the OOPs ,etc .... 
+
+Size of empty created Class => size ==1   eg=> class Animal(){};cout<<sizeof(Animal);
