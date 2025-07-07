@@ -74,6 +74,7 @@ And accessed/initialized using scope resolution operator => int Animal::count= 0
 
 Const keyword => cannot modify 
 const varaible => const int x = 10;
+also understand const with pointers , int const x ,  (in class using some void function_name const(){} )
 Const member function => 
 int getAge() const {  // Promises not to modify object
   return age;
@@ -136,11 +137,29 @@ Makes programs extensible and scalable.
 
 Compile Time and Runtime 
 Compile time => function overloading , operator overloading 
-Runtime => virtual keyword ,Base class pointers
+Runtime => virtual keyword ,Base class pointers,function overriding
+
+Virtual keyword :-
+Upcasting :-
+baseClass *ptr =new Derived_class(); 
+and calling some overrided fnc //output is always parent class function 
+
+to solve this we have virtual keyword .
+The virtual keyword in C++ is used in object-oriented programming to enable runtime polymorphism—allowing 
+the correct function to be called for an object, regardless of the type of pointer or reference used to call it.
+This enables runtime polymorphism, meaning the program chooses the correct function version at runtime, not at compile time.
+
+Learn this 4 patterns:-
+Parent *a = new Parent()
+Parent *a = new Child()
+Child *a = new Child()
+Child *a = (child*)new Parent()  and perform funciton overriding & invoke func &also print the constructors invoked.
 
 
-
-
+Virtual constructor vs virtual desctructor ( search) 
+can constrcutors be made private 
+friend keyword in c++ 
+inline functions and static keyword 
 
 
 
